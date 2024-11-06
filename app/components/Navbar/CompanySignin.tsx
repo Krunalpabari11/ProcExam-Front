@@ -21,19 +21,14 @@ const CompanySignin = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
         try {
             const response = await axios.post(`${BASE_URL}/auth/company/login`, { email, password });
             const token = response.data.token;
-            localStorage.setItem('company_token', token);
+            localStorage.setItem('company_token', response.data.token); 
             setErrorMessage(null);
             closeModal();
-        } catch (error:any) {
-            if (error.response && error.response.data) {
-                setErrorMessage(error.response.data.message);
-            } else {
-                setErrorMessage(error.response?.data?.message || 'Something went wrong. Please try again.');
-            }
+        } catch (error: any) {
+            setErrorMessage(error.response?.data?.message || 'Something went wrong. Please try again.');
         }
     };
 
