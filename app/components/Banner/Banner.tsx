@@ -1,10 +1,8 @@
 "use client"
 import { useState } from 'react';
-import Dropdownone from './Dropdownone';
-import Dropdowntwo from './Dropdowntwo';
-import GenerateQuizManual from './GenerateQuizManual';
+// import GenerateQuizManual from './GenerateQuizManual';
 
-const Banner = () => {
+const Banner = ({text}:any) => {
     const [showModal, setShowModal] = useState(false);
     const [showGenerateManualModal, setShowGenerateManualModal] = useState(false);
 
@@ -26,11 +24,11 @@ const Banner = () => {
 
     return (
         <main className='banner-image'>
-            <div className="relative px-6 lg:px-8">
+            <div className=" px-6 lg:px-8">
                 <div className="mx-auto max-w-5xl pt-16 sm:pt-40 sm:pb-24">
                     <div className="text-center">
                         <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-75px md:4px">
-                            Advance your engineering <br /> skills with our courses
+                          {text}
                         </h1>
                         <p className="mt-6 text-lg leading-8 text-black">
                             Build skills with our courses and mentor from world-class companies.
@@ -57,63 +55,12 @@ const Banner = () => {
                         </div>
                     </div>
 
-                    {/* DROPDOWN BUTTONS */}
-                    <div className="mx-auto max-w-4xl mt-24 pt-6 pb-8 px-6 lg:max-w-4xl lg:px-8 bg-white rounded-lg boxshadow">
-                        <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-8 xl:gap-x-8">
-                            <div className="col-span-3">
-                                <Dropdownone />
-                            </div>
-                            <div className="col-span-3">
-                                <Dropdowntwo />
-                            </div>
-                            <div className="col-span-3 sm:col-span-2 mt-2">
-                                <button 
-                                    className="bg-purple w-full hover:bg-purple-700 text-white font-bold py-4 px-3 rounded"
-                                    onClick={handleGenerateTestClick}
-                                >
-                                    Generate Test 
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                  
+                    
                 </div>
             </div>
 
-            {/* Modal for Generate Quiz Options */}
-            {showModal && (
-                <div className="fixed inset-0 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-lg shadow-lg p-8 w-80 z-50">
-                        <h2 className="text-xl font-semibold text-center mb-4">Choose Quiz Type</h2>
-                        <div className="space-y-4">
-                            <button 
-                                className="bg-purple w-full hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
-                                onClick={() => handleOptionClick('generate the quiz manually')}
-                            >
-                                Generate Quiz Manually
-                            </button>
-                            <button 
-                                className="bg-purple w-full hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
-                                onClick={() => handleOptionClick('generate the quiz using AI')}
-                            >
-                                AI Generated Quiz
-                            </button>
-                        </div>
-                        <button 
-                            className="mt-6 bg-gray-300 w-full hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded"
-                            onClick={handleCloseModal}
-                        >
-                            Close
-                        </button>
-                    </div>
-                    
-                    <div className="fixed inset-0 bg-black opacity-50"></div>
-                </div>
-            )}
-
-            {/* GenerateQuizManual Modal */}
-            {showGenerateManualModal && (
-                <GenerateQuizManual onClose={() => setShowGenerateManualModal(false)} />
-            )}
+            
         </main>
     );
 }
