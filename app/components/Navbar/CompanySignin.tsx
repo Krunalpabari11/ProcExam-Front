@@ -1,16 +1,22 @@
+'use client'
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/20/solid';
+import { useRouter } from 'next/navigation';
+import { AppContext } from '../../lib/AppContext';
+
+import { useContext } from 'react';
 import axios from 'axios';
 
 const BASE_URL = 'http://localhost:5000'; 
 
-const CompanySignin = () => {
+const CompanySignin = ({setSignedIn}:any) => {
     let [isOpen, setIsOpen] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
-
+    const router=useRouter();
+    const {setLoggedIn,LoggedIn} = useContext(AppContext);
     const closeModal = () => {
         setIsOpen(false);
     };
@@ -23,10 +29,15 @@ const CompanySignin = () => {
         e.preventDefault();
         try {
             const response = await axios.post(`${BASE_URL}/auth/company/login`, { email, password });
+            if(response.status===200){
             const token = response.data.token;
-            localStorage.setItem('company_token', response.data.token); 
+            localStorage.setItem('token', response.data.token); 
             setErrorMessage(null);
             closeModal();
+            setLoggedIn(true);
+            setSignedIn(true);
+            router.push('/company');
+            }
         } catch (error: any) {
             setErrorMessage(error.response?.data?.message || 'Something went wrong. Please try again.');
         }

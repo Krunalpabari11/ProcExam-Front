@@ -1,7 +1,7 @@
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Drawer from "./Drawer";
 import Drawerdata from "./Drawerdata";
 import CompanyRegister from "./CompanyRegister";
@@ -9,6 +9,8 @@ import StudentRegister from "./StudentRegister";
 import Contactus from "./Contactus";
 import StudentSignin from './StudentSignin';
 import CompanySignin from './CompanySignin';
+import { AppContext } from '@/app/lib/AppContext';
+import { useContext } from 'react';
 
 interface NavigationItem {
   name: string;
@@ -32,6 +34,17 @@ const Navbar = () => {
   const [isSignInOpen, setIsSignInOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [signedIn, setSignedIn] = useState(false);
+  const {setLoggedIn,loggedIn}=useContext(AppContext)
+
+  useEffect(()=>{
+    const token=localStorage.getItem('token')
+    if(token)
+    {
+      setLoggedIn(true)
+
+    }
+  },[])
 
 
   const toggleSignInDropdown = () => {
@@ -83,7 +96,7 @@ const Navbar = () => {
                 </div>
               </div>
             </div>
-
+            {!loggedIn &&  (<div className='flex'>      
             <div className="relative mr-4">
               <button
                 onClick={toggleSignInDropdown}
@@ -96,7 +109,7 @@ const Navbar = () => {
                   <button
                     className="block w-full text-left px-4 py-2 text-black hover:bg-gray-100"
                   >
-                    <CompanySignin />
+                    <CompanySignin setSignedIn={setSignedIn}/>
                   </button>
                   <button
                     className="block w-full text-left px-4 py-2 text-black hover:bg-gray-100"
@@ -129,6 +142,7 @@ const Navbar = () => {
                 </div>
               )}
             </div>
+            </div>)}
 
             <div className='block md:hidden'>
               <Bars3Icon className="block h-6 w-6" aria-hidden="true" onClick={() => setIsOpen(true)} />
