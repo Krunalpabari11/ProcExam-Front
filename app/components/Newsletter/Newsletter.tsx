@@ -11,7 +11,7 @@ const Newsletter = () => {
                         <h4 className="text-lg font-medium mb-7">Subscribe our newsletter for discounts, promo and many more.</h4>
                         <div className="flex gap-2">
                             <input type="Email address" name="q" className="py-4 text-sm w-full text-black bg-white rounded-md pl-4" placeholder="Enter your email" autoComplete="off" />
-                            <button className="bg-purple hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">
+                            <button className="bg-purple-700  hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">
                                 Subscribe
                             </button>
                         </div>

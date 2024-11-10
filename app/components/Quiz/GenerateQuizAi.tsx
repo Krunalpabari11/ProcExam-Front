@@ -74,13 +74,13 @@ export default function GenerateQuizAi({ onClose }: any) {
 
                     <button 
                         onClick={handleUpload} 
-                        className="bg-purple w-full hover:bg-purple-700 text-white font-bold py-2 px-4 rounded mt-4"
+                        className="bg-purple-700   w-full hover:bg-purple-700   text-white font-bold py-2 px-4 rounded mt-4"
                     >
                         Generate
                     </button>
                     <button 
                         onClick={() => { onClose(); }} 
-                        className="bg-purple border-purple w-full text-white font-bold py-2 px-4 rounded mt-4"
+                        className="bg-white  border-purple-700 w-full text-dark font-bold py-2 px-4 rounded mt-4"
                     >
                         Cancel
                     </button>

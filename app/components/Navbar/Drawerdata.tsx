@@ -48,14 +48,14 @@ const Data = () => {
             <Contactus />
             <div className="mt-4"></div>
 
-            <button className="bg-white w-full hover:bg-purple hover:text-white text-black border border-purple font-medium py-2 px-4 rounded">
+            <button className="bg-white w-full hover:bg-purple-700  hover:text-white text-black border border-purple font-medium py-2 px-4 rounded">
               Sign In
             </button>
 
             <div className="relative">
               <button
                 onClick={toggleDropdown}
-                className="bg-purple w-full hover:bg-purple hover:text-white text-white font-medium my-2 py-2 px-4 rounded"
+                className="bg-purple-700  w-full hover:bg-purple-700  hover:text-white text-white font-medium my-2 py-2 px-4 rounded"
               >
                 Register
               </button>

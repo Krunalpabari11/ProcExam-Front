@@ -123,7 +123,7 @@ const Navbar = () => {
             <div className="relative">
               <button
                 onClick={toggleRegisterDropdown}
-                className="bg-purple hover:bg-purple hover:text-white text-white font-medium py-2 px-4 rounded"
+                className="bg-purple-700   hover:bg-purple-700  hover:text-white text-white font-medium py-2 px-4 rounded"
               >
                 Register
               </button>

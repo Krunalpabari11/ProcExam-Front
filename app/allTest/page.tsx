@@ -1,9 +1,10 @@
 'use client'
 import { useState, useEffect } from 'react'
 import api from '../lib/api';
+import MailUploader from '../components/mail/mailUploader';
 export default function Page() {
   interface Test {
-    id: number;
+    quiz_id: number;
     title: string;
     duration: string;
     grade:string,
@@ -15,7 +16,14 @@ export default function Page() {
 
   const [tests, setTests] = useState<Test[]>([])
   const [loading, setLoading] = useState(true)
+  const [addStudent,setAddStudents]=useState(false)
+  const [quiz_id, setQuizId] = useState<number | undefined>(undefined)
 
+  const handleAddStudent=(test:Test)=>{
+    setAddStudents(true)
+    setQuizId(test.quiz_id)
+
+  }
   useEffect(() => {
     const fetchAllTests=async()=>{
         try {
@@ -51,7 +59,7 @@ export default function Page() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 ">
         {tests.map((test) => (
           <div 
-            key={test.id} 
+            key={test.quiz_id} 
             className="bg-[#f0ccac] rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-grey500"
           >
             <div className="p-6">
@@ -133,17 +141,24 @@ export default function Page() {
               </div>
 
               <div className='flex justify-center items-center gap-4 mt-6'>       
-                <button className="w-full bg-gray-700  text-white py-2 px-4 rounded-md hover:bg-bgpurple transition-colors duration-300">
+                <button className="w-full bg-gray-700  text-white py-2 px-4 rounded-md hover:bg-bgpurple transition-colors duration-300" onClick={()=>handleAddStudent(test)}>
                   Add Students
                 </button>
                 <button className="w-full bg-gray-700 text-white py-2 px-4 rounded-md hover:bg-bgpurple transition-colors duration-300">
                   See Results
                 </button>
               </div>
+
             </div>
           </div>
         ))}
       </div>
+      {
+                addStudent && (
+                  <MailUploader dontAdd={setAddStudents} quizId={quiz_id}/>
+                )
+              }
+
     </div>
   )
 }
