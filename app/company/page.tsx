@@ -36,7 +36,7 @@ export default function Page(){
             <Banner text={"Welcome Company"}></Banner>
             <div className="col-span-3 sm:col-span-2 mt-2 mb-10 flex items-center justify-center">
                                 <button 
-                                    className="bg-purple w-48 hover:bg-dark-700 text-white font-bold py-4 px-3 rounded "
+                                    className="bg-purple-400 w-48 hover:bg-dark-700 text-white font-bold py-4 px-3 rounded "
                                     onClick={handleGenerateTestClick}
                                 >
                                     Generate Test 
@@ -45,7 +45,7 @@ export default function Page(){
 
                             <div className="col-span-3 sm:col-span-2 mt-2 mb-10 flex items-center justify-center">
                                 <button 
-                                    className="bg-purple w-48 hover:bg-dark-700 text-white font-bold py-4 px-3 rounded "
+                                    className="bg-green-400 w-48 hover:bg-dark-700 text-white font-bold py-4 px-3 rounded "
                                     onClick={()=>{router.push('/allTest')}}
                                 >
                                     See All Tests
@@ -59,13 +59,13 @@ export default function Page(){
                         <h2 className="text-xl font-semibold text-center mb-4">Choose Quiz Type</h2>
                         <div className="space-y-4">
                             <button 
-                                className="bg-purple w-full hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+                                className="bg-purple-700   w-full hover:bg-purple-700   text-white font-bold py-2 px-4 rounded"
                                 onClick={() => handleOptionClick('generate the quiz manually')}
                             >
                                 Generate Quiz Manually
                             </button>
                             <button 
-                                className="bg-purple w-full hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+                                className="bg-purple-700   w-full hover:bg-purple-700   text-white font-bold py-2 px-4 rounded"
                                 onClick={() => handleOptionClick('generate the quiz using AI')}
                             >
                                 AI Generated Quiz

@@ -82,7 +82,7 @@ const GenerateQuizManual: React.FC<GenerateQuizManualProps> = ({ onClose }) => {
                     />
                     <button 
                         onClick={handleUpload} 
-                        className="bg-purple w-full hover:bg-purple-700 text-white font-bold py-2 px-4 rounded mt-4"
+                        className="bg-purple-700   w-full hover:bg-purple-700   text-white font-bold py-2 px-4 rounded mt-4"
                     >
                         Upload
                     </button>
