@@ -1,5 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
+import {jwtDecode} from 'jwt-decode';
+import { useRouter } from 'next/navigation';
 import api from '../lib/api';
 import MailUploader from '../components/mail/mailUploader';
 export default function Page() {
@@ -13,17 +15,33 @@ export default function Page() {
     subject:string
     difficulty: string;
   }
-
+  const router=useRouter()
   const [tests, setTests] = useState<Test[]>([])
   const [loading, setLoading] = useState(true)
   const [addStudent,setAddStudents]=useState(false)
   const [quiz_id, setQuizId] = useState<number | undefined>(undefined)
+  const [authorized,setAuthorized]=useState(false)  
 
   const handleAddStudent=(test:Test)=>{
     setAddStudents(true)
     setQuizId(test.quiz_id)
 
   }
+  useEffect(()=>{
+    const token = localStorage.getItem('token');
+    if (token) {
+        const role = jwtDecode(token);
+        if (role.role === 'student') {
+            router.push('/student/dashboard');
+        }
+        setAuthorized(true)
+    }
+    else{
+      router.push('/')
+    }
+    
+},[])
+
   useEffect(() => {
     const fetchAllTests=async()=>{
         try {
@@ -51,7 +69,7 @@ export default function Page() {
 
 
   return (
-    <div className="container mx-auto px-4 py-8 font-inter">
+   authorized && <div className="container mx-auto px-4 py-8 font-inter">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold text-purple">Available Tests</h1>
       </div>

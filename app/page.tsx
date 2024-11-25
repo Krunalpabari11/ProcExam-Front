@@ -22,10 +22,9 @@ const router=useRouter();
     <>
       <Banner text={"Advanced Your Carrer With Us"}/>
       <DropDownOptions/>
-      <Companies />
       <Tabs />
       <Mentor />
-      <Students />
+      {/* <Students /> */}
       <Newsletter />
     </>
   )
