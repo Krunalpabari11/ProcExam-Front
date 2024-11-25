@@ -1,6 +1,7 @@
 'use client'
 import Banner from "../components/Banner/Banner"
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+import { jwtDecode } from "jwt-decode";
 import GenerateQuizManual from "../components/Quiz/GenerateQuizManual";
 import GenerateQuizAi from "../components/Quiz/GenerateQuizAi";
 import { useRouter } from "next/navigation";
@@ -8,7 +9,25 @@ export default function Page(){
     const [showModal, setShowModal] = useState(false);
     const [showGenerateManualModal, setShowGenerateManualModal] = useState(false);
     const [generateusingAi, setGenerateusingAi] = useState(false);
+    const [authorized,setAuthorized]=useState(false)
     const router=useRouter();
+
+
+    useEffect(()=>{
+        const token = localStorage.getItem('token');
+        if (token) {
+            const role = jwtDecode(token);
+            if (role.role === 'student') {
+                router.push('/student/dashboard');
+            }
+            setAuthorized(true)
+        }
+        else{
+            router.push('/')
+        }
+        
+    },[])
+    
     const handleGenerateTestClick = () => {
         setShowModal(true); 
     };
@@ -32,7 +51,7 @@ export default function Page(){
 
 
     return (
-        <div>
+      authorized &&  <div>
             <Banner text={"Welcome Company"}></Banner>
             <div className="col-span-3 sm:col-span-2 mt-2 mb-10 flex items-center justify-center">
                                 <button 

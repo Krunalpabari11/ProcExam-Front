@@ -1,14 +1,23 @@
+'use client'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
+import { useRouter } from 'next/navigation';
+import { useContext,useEffect } from 'react';
+import {AppContext} from '../../lib/AppContext'
+import api from '../../lib/api';
+import { jwtDecode } from 'jwt-decode';
 
 const BASE_URL = 'http://localhost:5000';
 
 const StudentSignin = () => {
     let [isOpen, setIsOpen] = useState(false)
+    const router=useRouter();
+    const {setCurrentUser,currentUser}=useContext(AppContext)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+ 
 
     const closeModal = () => {
         setIsOpen(false)
@@ -38,8 +47,11 @@ const StudentSignin = () => {
             if (response.ok) {
                 const { token } = data;
                 localStorage.setItem('token', token);
+                setCurrentUser(token)
+
                 closeModal();
                 alert('Login successful');
+                router.push('/student/dashboard');
             } else {
                 setErrorMessage(data.message || 'Login failed');
             }

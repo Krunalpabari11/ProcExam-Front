@@ -37,6 +37,7 @@ const StudentRegister = () => {
         try {
             const response = await axios.post(`${BASE_URL}/auth/student/register`, formData); 
             setSuccessMessage(response.data.message);
+            alert('Registration successful!, Please Login');
             setErrorMessage('');
             setFormData({ name: '', email: '', phone: '', password: '' }); 
             closeModal(); 

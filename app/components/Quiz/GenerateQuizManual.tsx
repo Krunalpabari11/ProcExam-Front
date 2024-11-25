@@ -42,26 +42,33 @@ const GenerateQuizManual: React.FC<GenerateQuizManualProps> = ({ onClose }) => {
             setErrorMessage("Please select a CSV file.");
             return;
         }
-
+    
         try {
             await validateCSV(file);
             const formData = new FormData();
             formData.append('file', file);
-            const response = await axios.post('http://localhost:5000/api/quiz/generate', formData, {
+    
+            const token = localStorage.getItem('token');
+    
+            const response = await fetch('http://localhost:5000/api/quiz/generate', {
+                method: 'POST',
                 headers: {
-                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`, 
                 },
+                body: formData
             });
-
-            if (response.status === 200) {
+    
+            if (response.ok) {
                 setSuccessMessage("File uploaded successfully!");
             } else {
-                setErrorMessage("File upload failed. Please try again.");
+                const errorText = await response.text();
+                setErrorMessage(`File upload failed: ${errorText}`);
             }
-        } catch (error: any) {
-            setErrorMessage(error.message || "File upload failed.");
+        } catch (error) {
+            setErrorMessage("File upload failed.");
         }
     };
+    
 
     const closeModal = () => {
         setSuccessMessage('');
@@ -69,6 +76,7 @@ const GenerateQuizManual: React.FC<GenerateQuizManualProps> = ({ onClose }) => {
         onClose();
     };
 
+    
     return (
         <>
             <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -82,7 +90,7 @@ const GenerateQuizManual: React.FC<GenerateQuizManualProps> = ({ onClose }) => {
                     />
                     <button 
                         onClick={handleUpload} 
-                        className="bg-purple-700   w-full hover:bg-purple-700   text-white font-bold py-2 px-4 rounded mt-4"
+                        className="bg-purple w-full hover:bg-purple-700 text-white font-bold py-2 px-4 rounded mt-4"
                     >
                         Upload
                     </button>
